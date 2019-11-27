@@ -12,6 +12,15 @@ void main(void)
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
 
 	configUARTRed();
-	uint8_t data = 0b10101111;
-	sendbyte(data);
+
+	while(1){
+	uint8_t data1 = 0x76;
+	sendbyte(data1);
+	}
+//	uint8_t data2 = 0b10101111;
+//	sendbyte(data2);
+//	uint8_t data3 = 0b10101111;
+//	sendbyte(data3);
+//	uint8_t data4 = 0b10101111;
+//	sendbyte(data4);
 }
