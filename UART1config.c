@@ -5,34 +5,46 @@
 
 
 
-void sendbyte(uint8_t data){
-    while(!(EUSCI_A0 -> IFG & EUSCI_A_IFG_TXIFG)); //delay while there is something in the buffer
-    //EUSCI_A0 -> TXBUF = data; //send data to buffer
-    UCA0TXBUF = data;
+void sendbyte(uint8_t data5){
+    while(!(EUSCI_A2 -> IFG & EUSCI_A_IFG_TXIFG)); //delay while there is something in the buffer
+    EUSCI_A2 -> TXBUF |= data5; //send data to buffer
+    //UCA0TXBUF = data;
 }
 
+void EUSCIA2_IRQHandler(void){
+    uint8_t data5 = 0x05;
+    sendbyte(data5);
+
+
+}
 
 void configUARTRed(void){
 
-    EUSCI_A0 -> CTLW0 |= EUSCI_A_CTLW0_SWRST; //set UCSWRST
-    EUSCI_A0 -> CTLW0 &= ~EUSCI_A_CTLW0_PEN; //disable parity
-    EUSCI_A0 -> CTLW0 &= ~EUSCI_B_CTLW0_MSB; //configure MSB or LSB*************
-    EUSCI_A0 -> CTLW0 &= ~EUSCI_B_CTLW0_SEVENBIT; //8 data bits
-    EUSCI_A0 -> CTLW0 &= ~EUSCI_A_CTLW0_SPB; //1 stop bit
-    EUSCI_A0 -> CTLW0 &= ~EUSCI_A_CTLW0_MODE_MASK; //select UART mode, we might want automatic baud rate detection
-    EUSCI_A0 -> CTLW0 &= ~EUSCI_A_CTLW0_SYNC; //asynchronous
-    EUSCI_A0 -> CTLW0 |= EUSCI_A_CTLW0_SSEL__SMCLK; //select SMCLK
-    EUSCI_A0 -> CTLW0 &= ~EUSCI_A_CTLW0_DORM; //not dormant
+    EUSCI_A2 -> CTLW0 |= EUSCI_A_CTLW0_SWRST; //set UCSWRST
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_A_CTLW0_PEN; //disable parity
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_B_CTLW0_MSB; //configure MSB or LSB*************lsb
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_B_CTLW0_SEVENBIT; //8 data bits
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_A_CTLW0_SPB; //1 stop bit
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_A_CTLW0_MODE_MASK; //select UART mode, we might want automatic baud rate detection
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_A_CTLW0_SYNC; //asynchronous
+    EUSCI_A2 -> CTLW0 |= EUSCI_A_CTLW0_SSEL__SMCLK; //select SMCLK
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_A_CTLW0_DORM; //not dormant
 
-    EUSCI_A0 -> BRW = 0x4E; //78
-    EUSCI_A0 -> MCTLW |= (0x02 << EUSCI_A_MCTLW_BRF_OFS) | EUSCI_A_MCTLW_OS16; //set UCBRF = 2, UCOS16 = 1
-    EUSCI_A0 -> MCTLW &= ~EUSCI_A_MCTLW_BRS_MASK; // UCBRS = 0x00
+    //EUSCI_A2 -> BRW = 0x4E; //78
+    EUSCI_A2 -> BRW = 0x13;
+    EUSCI_A2 -> MCTLW |= (0x02 << EUSCI_A_MCTLW_BRF_OFS) | EUSCI_A_MCTLW_OS16; //set UCBRF = 2, UCOS16 = 1
+    EUSCI_A2 -> MCTLW &= ~EUSCI_A_MCTLW_BRS_MASK; // UCBRS = 0x00
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_A_CTLW0_TXBRK;
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_A_CTLW0_TXADDR;
 
-    EUSCI_A0 -> IE |= EUSCI_A_IE_TXIE;  //enable transmit interrupt
 
+    EUSCI_A2 -> IE |= EUSCI_A_IE_TXIE;  //enable transmit interrupt
+    //EUSCI_A2 -> IE |= 0x02;
+
+    P3DIR |= BIT3;
     P3->SEL0 |= (BIT3);
     P3->SEL1 &= ~(BIT3);
-    EUSCI_A0 -> MCTLW &= ~EUSCI_A_CTLW0_SWRST; //reset UCSWRST
+    EUSCI_A2 -> CTLW0 &= ~EUSCI_A_CTLW0_SWRST; //reset UCSWRST
 
 }
 

@@ -8,6 +8,7 @@
 
 void sendbyte(uint8_t data);
 
+void EUSCIA2_IRQHandler(void);
 
 void configUARTRed(void);
 

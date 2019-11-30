@@ -14,8 +14,16 @@ void main(void)
 	configUARTRed();
 
 	while(1){
-	uint8_t data1 = 0x76;
-	sendbyte(data1);
+	    //uint8_t i;
+	    //for(i=0;i<100;i++){ //delay
+	uint8_t data0 = 0b00000101;
+	sendbyte(data0);
+	int p;
+	for(p=0;p<10000;p++);
+
+	   //}
+	//uint8_t data1 = 0x76;
+	//sendbyte(data1);
 	}
 //	uint8_t data2 = 0b10101111;
 //	sendbyte(data2);
