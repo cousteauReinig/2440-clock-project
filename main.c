@@ -13,22 +13,37 @@ void main(void)
 
 	configUARTRed();
 
-	while(1){
-	    //uint8_t i;
-	    //for(i=0;i<100;i++){ //delay
-	uint8_t data0 = 0b00000101;
-	sendbyte(data0);
-	int p;
-	for(p=0;p<10000;p++);
 
-	   //}
-	//uint8_t data1 = 0x76;
-	//sendbyte(data1);
-	}
-//	uint8_t data2 = 0b10101111;
-//	sendbyte(data2);
-//	uint8_t data3 = 0b10101111;
-//	sendbyte(data3);
-//	uint8_t data4 = 0b10101111;
-//	sendbyte(data4);
+
+	int p;
+//	for(p=0;p<100000;p++);
+//while(1){
+	sendbyte(118);
+    for(p=0;p<1000;p++);
+    sendbyte(0x77);
+    for(p=0;p<1000;p++);
+    sendbyte(16);
+	for(p=0;p<1000;p++);
+    sendbyte(1);
+    for(p=0;p<1000;p++);
+    sendbyte(2);
+    for(p=0;p<1000;p++);
+    sendbyte(5);
+    for(p=0;p<1000;p++);
+    sendbyte(8);
+//   for(p=0;p<100000;p++);
+//}
+//    sendbyte(2);
+//    sendbyte(3);
+//    sendbyte(4);
+//    sendbyte(0x02);
+
+//	for(p=0;p<1000000;p++);
+//    uint8_t datac = 0x76;
+//    sendbyte(datac);
+//    for(p=0;p<1000000;p++);
+//    sendbyte(data1);
+	while(1);
+
+
 }
