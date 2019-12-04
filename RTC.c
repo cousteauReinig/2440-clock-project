@@ -19,7 +19,7 @@ void RTC_Setup(int hour, int min, int sec)
     RTCHOUR = hour;                           
     RTCMIN = min;                           
     RTCSEC = sec;                            
-    RTCCTL0_H = 0;                            // lock it.This register should be written with A5h to unlock RTC. 
+    //RTCCTL0_H = 0;                            // lock it.This register should be written with A5h to unlock RTC. 
                                                // Any write with value other than A5h locks the module. Reads from this register always return 96h.
    
     RTCCTL1 &= ~(RTCHOLD);                    // Start RTC calendar mode
@@ -38,14 +38,14 @@ void RtcInteruptHandler(void)
 
     if ( RTCTEVIFG) //interrupt happens
     {
-        RTCCTL0_H = RTCKEY;//unlock, to prevent get locked.
+        //RTCCTL0_H = RTCKEY;//unlock, to prevent get locked.
         
         
         //do something we want, highlighted!
         
         
         RTCCTL0_L &= ~RTCTEVIFG; //clear the flag
-        RTCCTL0_H = 0; //lock it. This register should be written with A5h to unlock RTC. 
+        //RTCCTL0_H = 0; //lock it. This register should be written with A5h to unlock RTC. 
                        // Any write with value other than A5h locks the module. Reads from this register always return 96h.
     }
 
