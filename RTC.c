@@ -1,6 +1,6 @@
 void RTC_Setup(int hour, int min, int sec)
 {
-    WDTCTL = WDTPW | WDTHOLD;               // Stop WDT
+   
 
     
 
