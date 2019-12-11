@@ -13,6 +13,7 @@ void main(void)
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
 
 	configUARTRed();
+	configUARTBlue();
 	RTC_Setup();
 
 	int k;
@@ -65,22 +66,20 @@ void main(void)
 
     RTCHOUR = hourBCD;
     RTCMIN = minBCD;
+    RTCSEC = 0;
     //RTCSEC = 0;
 
 
+    int p;
+    for(p=0;p<1000;p++);
+    sendbyte(0x76);
 
+    for(p=0;p<1000;p++);
+    sendbyte(0x77);
+    for(p=0;p<1000;p++);
+    sendbyte(16);
 
     while(state == 5){
-
-        int p;
-
-        for(p=0;p<1000;p++);
-        sendbyte(0x76);
-
-        for(p=0;p<1000;p++);
-        sendbyte(0x77);
-        for(p=0;p<1000;p++);
-        sendbyte(16);
 
     uint8_t dataMin = RTCMIN;
     uint8_t dataHour = RTCHOUR;
@@ -91,13 +90,13 @@ void main(void)
     uint8_t dataMinLow = (dataMin & 0b00001111);
     uint8_t dataMinHigh = (dataMin >> 4);
 
-    for(p=0;p<1000;p++);
+    for(p=0;p<10000;p++);
     sendbyte(dataHourHigh);
-    for(p=0;p<1000;p++);
+    for(p=0;p<10000;p++);
     sendbyte(dataHourLow);
-    for(p=0;p<1000;p++);
+    for(p=0;p<10000;p++);
     sendbyte(dataMinHigh);
-    for(p=0;p<1000;p++);
+    for(p=0;p<10000;p++);
     sendbyte(dataMinLow);
     }
 }

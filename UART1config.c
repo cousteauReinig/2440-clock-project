@@ -50,7 +50,7 @@ void configUARTBlue(void){
 
     EUSCI_A3 -> CTLW0 |= EUSCI_A_CTLW0_SWRST; //set UCSWRST
     EUSCI_A3 -> CTLW0 &= ~EUSCI_A_CTLW0_PEN; //disable parity
-    EUSCI_A3 -> CTLW0 |= EUSCI_B_CTLW0_MSB; //configure MSB or LSB*************
+    EUSCI_A3 -> CTLW0 &= ~EUSCI_B_CTLW0_MSB; //configure MSB or LSB*************
     EUSCI_A3 -> CTLW0 &= ~EUSCI_B_CTLW0_SEVENBIT; //8 data bits
     EUSCI_A3 -> CTLW0 &= ~EUSCI_A_CTLW0_SPB; //1 stop bit
     EUSCI_A3 -> CTLW0 &= ~EUSCI_A_CTLW0_MODE_MASK; //select UART mode, we might want automatic baud rate detection
@@ -68,8 +68,8 @@ void configUARTBlue(void){
     P9->SEL1 &= ~(BIT6);
     EUSCI_A3 -> CTLW0 &= ~EUSCI_A_CTLW0_SWRST; //reset UCSWRST
 
-    NVIC_EnableIRQ(EUSCIA3_IRQn);
-    EUSCI_A3 -> IE |= EUSCI_A__RXIE;  //enable receive interrupt
+//    NVIC_EnableIRQ(EUSCIA3_IRQn);
+//    EUSCI_A3 -> IE |= EUSCI_A__RXIE;  //enable receive interrupt
 }
 
 
